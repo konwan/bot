@@ -1,3 +1,10 @@
+#Intro:   
+Google Apps Script(GSA)   
+以 Javascript 為基準所開發出的語言。可用來操作 Google Docs, Sheets, Forms。   
+發佈 web apps，單獨或嵌入 google sites    
+與其他 Google 服務互動，包含 AdSense、Analytics、Calendar、Drive、Gmail、Maps    
+
+
 #Tools:   
   Python 3.5    
   Selenium, Beautifulsoup4    
