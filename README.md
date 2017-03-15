@@ -1,3 +1,9 @@
+#Prepare:
+1. https server
+   [Ngrok](https://ngrok.com/)- tunnel local ports to public URLs and inspect traffic    
+   $brew cask install ngrok
+   [Heroku](https://dashboard.heroku.com/apps) 
+
 #Intro:   
 [Google Apps Script(GSA)](https://developers.google.com/apps-script/overview#your_first_script)   
 以 Javascript 為基準所開發出的語言。可用來操作 Google Docs, Sheets, Forms。   
