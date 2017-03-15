@@ -1,8 +1,9 @@
 #Prepare:
-1. https server
-   [Ngrok](https://ngrok.com/)- tunnel local ports to public URLs and inspect traffic    
-   $brew cask install ngrok
-   [Heroku](https://dashboard.heroku.com/apps) 
+1. https server     
+   * [Ngrok](https://ngrok.com/)- tunnel local ports to public URLs and inspect traffic    
+   $ brew cask install ngrok    
+   $ ngrok http -auth="username:password" port       
+   * [Heroku](https://dashboard.heroku.com/apps)
 
 #Intro:   
 [Google Apps Script(GSA)](https://developers.google.com/apps-script/overview#your_first_script)   
@@ -15,11 +16,13 @@
   Python 3.5    
   Selenium, Beautifulsoup4    
   [line-bot-sdk-python](https://github.com/line/line-bot-sdk-python)    
-  
-  
+
+
 #Steps:   
-1. add line_access_token and line_channel_secret    
+1. add line_access_token and line_channel_secret(.bash_profile)    
 export LINE_CHANNEL_ACCESS_TOKEN='Your line channel access token'   
 export LINE_CHANNEL_SECRET='Your line channel secret'   
 echo $LINE_CHANNEL_SECRET
-  
+
+#Reference      
+[ngrok  intro](https://tenten.co/blog/how-to-use-ngrok-to-connect-your-localhost/)
