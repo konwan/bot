@@ -36,7 +36,32 @@ CHROME_DRIVER = "{}/chrome/mac64/chromedriver".format(BOTDRIVERDIR)
 PHANTOMJS_DRIVER = "{}/phantomjs/mac64/phantomjs-2.1.1/bin/phantomjs".format(BOTDRIVERDIR)
 WEBAGENT = "Mozilla/{x}.0 (Macintosh; Intel Mac OS X 10.9; rv:{x}.0) Firefox/{x}.0".format(x=random.randint(0,30))
 
-class EMBot(object):
+class Bot(object):
+    log_level = logging.DEBUG
+    bot_type = "bot" # ['time', 'chat', 'big', 'invest', 'map']
+    event = random_id()
+
+    def __init__(self):
+        self.botlogger = BotLog(self.log_level, self.bot_type)
+        self.answer = ""
+        self.start_bot()
+
+    def start_bot(self):
+        self.botlogger.log("[{}] start a {} bot".format(self.__class__.__name__, self.bot_type))
+
+    def job(self):
+        pass
+
+    def end_bot(self):
+        self.botlogger.log("[{}]----------- end a {} -----------".format(self.__class__.__name__, self.bot_type))
+        self.botlogger.end_log()
+
+    def trace(self):
+        pass
+
+
+
+class WebBot(Bot):
     # 1. time (thr/train)
     # 2. invest (gold/ex/stock)
     # 3. map (according to geo data(in 5 km) git top 5 bus/ food/ tour)
@@ -44,34 +69,13 @@ class EMBot(object):
     # 5. chat (sweet heart)
 
     log_level = logging.DEBUG
-    bot_type = "time" # ['time', 'chat', 'big', 'invest', 'map']
-    event = random_id()
-
-    def __init__(self):
-        self.botlogger = BotLog(self.log_level, self.bot_type)
-        self.start()
-
-    def start(self):
-        self.botlogger.log("{} start bot".format(self.event))
-
-    def job(self):
-        self.botlogger.log("job {}".format(BOTDATADIR))
-
-    def end(self):
-        self.botlogger.log("end bot")
-
-    def trace(self):
-        pass
-
-class Bot(object):
-    log_level = logging.DEBUG
-    bot_type = "time" # ['time', 'chat', 'big', 'invest', 'map']
+    bot_type = "webbot" # ['time', 'chat', 'big', 'invest', 'map']
     browser = "phantomjs" #['phantomjs', 'chrome']
     event = random_id()
 
-    def __init__(self):
-        self.src_url = ""
-        self.botlogger = BotLog(self.log_level, self.bot_type)
+    def __init__(self, *args, **kwargs):
+        super(WebBot, self).__init__(*args, **kwargs)
+        self.data = []
 
         if self.browser == "phantomjs":
             self.driver = webdriver.PhantomJS(PHANTOMJS_DRIVER)
@@ -80,15 +84,18 @@ class Bot(object):
         self.start()
 
     def start(self):
-        self.botlogger.log("start bot")
+        self.src_url = ""
+        self.botlogger.log("[{}]-{} start do web job".format(self.__class__.__name__, self.event))
 
-    def job(self):
-        self.botlogger.log("job {}".format(BOTDATADIR))
+    def crawl_data(self):
+        self.botlogger.log("[{}]-{} crawl website data".format(self.__class__.__name__, self.event))
 
-    def end(self):
-        self.botlogger.log("end bot")
+    def end_crawler(self):
+        self.botlogger.log("[{}]-{}-----------  end web job -----------".format(self.__class__.__name__, self.event))
+        self.driver.quit()
+        self.botlogger.end_log()
 
-    def trace(self):
+    def result(self):
         pass
 
 
@@ -112,12 +119,20 @@ class BotLog(object):
         self.LOG.log(self.level, msg)
         # self.LOG.log(40, datetime.now().strftime("%Y-%m-%d %H:%M:%S:%f ")[:-3] + msg)
 
+    def end_log(self):
+        self.HANDLER.close()
+        self.LOG.removeHandler(self.HANDLER)
+
+
 
 if __name__ == "__main__":
     # a = BotLog(logging.INFO, 'time')
     # a.log(" oh yap  ")
-    b = Bot()
-    print(b.event)
+    # a.end()
+    # b = Bot()
+    # print(b.event)
     # b.start()
-    # b.crawl_data()
+    c = WebBot()
+    c.crawl_data()
+    c.end_crawler()
     # b.end()
