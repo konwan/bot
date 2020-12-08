@@ -98,7 +98,7 @@ def handle_text(event):
                         data = "time"
                     ),
                     URITemplateAction(
-                        label = '影片介紹 阿肥bot',
+                        label = 'intro',
                         uri = 'https://youtu.be/1IxtWgWxtlE'
                     ),
                     PostbackTemplateAction(

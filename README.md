@@ -18,7 +18,7 @@
 
 # Steps:   
 1. [get access_token and set IP whitelist](https://developers.line.me/ba/ip)      
-2. add line_access_token and line_channel_secret(.bash_profile)    
+2. add line_access_token and line_channel_secret(.bash_profile/config.ini)    
 export LINE_CHANNEL_ACCESS_TOKEN='Your line channel access token'   
 export LINE_CHANNEL_SECRET='Your line channel secret'   
 echo $LINE_CHANNEL_SECRET
